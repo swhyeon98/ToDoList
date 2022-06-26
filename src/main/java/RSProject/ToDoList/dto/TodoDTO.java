@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,5 +20,13 @@ public class TodoDTO {
         this.done = entity.isDone();
         // userId가 없는 이유 : 스프링 시큐리티를 이용해 인증을 구현하기 때문.
         // 사용자가 자기 아이디를 넘겨주지 않아도 인증이 가능해짐. p.96 참고
+    }
+
+    public static TodoEntity toEntity(final TodoDTO dto) {
+        return TodoEntity.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .done(dto.isDone())
+                .build();
     }
 }
